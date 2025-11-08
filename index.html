@@ -142,7 +142,7 @@
     </div>
 
     <div class="meta-row">
-      <div><h2>Meta Igreja: <strong id="church-target">R$ 0</strong></h2></div>
+      <div><h2>Meta Igreja: <br> <strong id="church-target">R$ 0</strong></h2></div>
       <div><h2>Arrecadado: <strong id="church-achieved">R$ 0</strong></h2></div>
     </div>
   </div>
@@ -238,10 +238,10 @@ function renderGauges(items){
   });
 }
 function pickGaugeColor(p){
-  if(p<=10) return gaugeColors[0];
-  if(p<=30) return gaugeColors[1];
-  if(p<=60) return gaugeColors[2];
-  if(p<=85) return gaugeColors[3];
+  if(p<=25) return gaugeColors[0];
+  if(p<=50) return gaugeColors[1];
+  if(p<=75) return gaugeColors[2];
+  if(p<=99) return gaugeColors[3];
   return gaugeColors[4];
 }
 
