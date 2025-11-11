@@ -26,10 +26,10 @@
   }
   .container {
     display: grid;
-    grid-template-columns: 300px 1.5fr 90px;
+    grid-template-columns: 365px 1.5fr 90px;
     gap: 18px;
     padding: 10px;
-    max-width: 1500px;
+    max-width: 1250px;
     margin: 18px auto;
   }
 
@@ -38,7 +38,7 @@
   .left{
     background:var(--card);
     border-radius:12px;
-    padding:12px;
+    padding:10px;
     box-shadow:0 6px 18px rgba(0,0,0,0.35);
   }
   .gauge-item{
@@ -50,9 +50,6 @@
   .gauge-title{font-weight:700; font-size:18px; margin-bottom:6px; color:#9ef5b9}
   canvas.gauge{ width:180% !important; height:55px !important; display:block; transform: translateX(-20%); /* centraliza novamente */}
 
-
-
-  
 
   /* Center: mapa */
   .center{
@@ -86,7 +83,7 @@
 
   /* Right: barra vertical (termômetro) */
   .right {
-    color: #073233;
+    color: #eff1f1;
     transition: background 1s ease;
     border-radius: 12px;
     padding: 20px;
@@ -96,8 +93,6 @@
     background: rgba(255,255,255,0.03);
     box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
   }
-
-
 
   .thermo{
     width:28px;
@@ -112,7 +107,6 @@
     .thermo-fill {
     transition: height 700ms ease, background-color 700ms ease;
   }
-
 
   /* Footer small help */
   .hint{ font-size:12px; color:rgba(255,255,255,0.6); margin-top:8px }
@@ -130,7 +124,7 @@
   <div class="left" id="left-col">
     <h2 style="margin:0 0 8px 0;color:var(--accent)">Arrecadação por classes<br></h2>
     <div id="gauges"></div>
-    <div class="hint">Dados lidos da planilha. Atualize a planilha e recarregue a página.</div>
+    <div class="hint">Dados atualizados semanalmente</div>
   </div>
 
   <!-- Coluna Central -->
@@ -142,8 +136,8 @@
     </div>
 
     <div class="meta-row">
-      <div><h2>Meta Igreja: <strong id="church-target">R$ 0</strong></h2></div>
-      <div><h2>Arrecadado: <strong id="church-achieved">R$ 0</strong></h2></div>
+      <div><h1>Meta Igreja: <strong id="church-target">R$ 0</strong></h1></div>
+      <div><h1>Arrecadado: <strong id="church-achieved">R$ 0</strong></h1></div>
     </div>
   </div>
 
