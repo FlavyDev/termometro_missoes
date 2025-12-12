@@ -27,9 +27,9 @@
 
   .container {
     display: grid;
-    grid-template-columns: 300px 1.5fr 90px;
+    grid-template-columns: 395px 1.5fr 90px;
     grid-template-areas: "left center right";
-    gap: 18px;
+    gap: 5px;
     padding: 10px;
     max-width: 1250px;
     margin: 18px auto;
@@ -46,7 +46,7 @@
   .gauge-item{
     margin-bottom:18px;
     background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-    padding:8px;
+    padding:5px;
     border-radius:10px;
   }
   .gauge-title{font-weight:700; font-size:18px; margin-bottom:6px; color:#9ef5b9}
@@ -58,7 +58,7 @@
     grid-area: center;
     background:var(--card);
     border-radius:12px;
-    padding:18px;
+    padding:5px;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -87,7 +87,7 @@
   /* Right: barra vertical (termômetro) */
   .right {
     grid-area: right; 
-    color: #eff1f1;
+    color: #000000;
     transition: background 1s ease;
     border-radius: 12px;
     padding: 20px;
@@ -130,7 +130,7 @@
   }
 
   .meta-row {
-    font-size:13px;
+    font-size:10px;
   }
 }
 
