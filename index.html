@@ -204,52 +204,69 @@ async function loadAndRender(){
   }
 }
 
-/* GAUGES (mantido como estava) */
+/* GAUGES */
 function renderGauges(items){
   const container = document.getElementById('gauges');
   container.innerHTML = '';
-  if(!items || items.length===0){
-    container.innerHTML = '<div style="color:#cfe6ce">Nenhuma classe encontrada na planilha.</div>';
+
+  if(!items || items.length === 0){
+    container.innerHTML =
+      '<div style="color:#cfe6ce">Nenhuma classe encontrada na planilha.</div>';
     return;
   }
+
   items.forEach((it, idx) => {
-    const name = it.name || `Classe ${idx+1}`;
+    const name = it.name || `Classe ${idx + 1}`;
     const target = Number(it.target) || 0;
     const achieved = Number(it.achieved) || 0;
-    const percent = target>0 ? Math.round((achieved/target)*100) : 0;
-    const percentClamped = clamp(percent,0,100);
+
+    const percent = target > 0
+      ? Math.round((achieved / target) * 100)
+      : 0;
+
+    const percentRaw = percent;                 // pode passar de 100
+    const percentVisual = clamp(percent, 0, 100); // só para visual
+
     const wrapper = document.createElement('div');
     wrapper.className = 'gauge-item';
     wrapper.innerHTML = `
-      <div class="gauge-title">${name} — ${fmtMoney(achieved)} / ${fmtMoney(target)} (<span id="pct-${idx}">${percentClamped}%</span>)</div>
-      <canvas class="gauge" id="gauge-${idx}"></canvas>
+      <div class="gauge-title">
+        ${name} — ${fmtMoney(achieved)} / ${fmtMoney(target)}
+        (<span id="pct-${idx}">${percentRaw}%</span>)
+      </div>
+      <canvas class="gauge"></canvas>
     `;
     container.appendChild(wrapper);
+
     const ctx = wrapper.querySelector('canvas').getContext('2d');
-    const achievedValue = Math.max(0, Math.min(target, achieved));
-    const restValue = Math.max(0, target - achievedValue);
+
     new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['atingido','restante'],
-        datasets:[{
-          data: [achievedValue, restValue],
-          backgroundColor: [pickGaugeColor(percentClamped),'rgba(255,255,255,0.06)'],
-          borderWidth:0,
-          hoverOffset:0
+        datasets: [{
+          data: [percentVisual, 100 - percentVisual],
+          backgroundColor: [
+            pickGaugeColor(percentVisual),
+            'rgba(255,255,255,0.06)'
+          ],
+          borderWidth: 0
         }]
       },
       options: {
         rotation: Math.PI,
         circumference: Math.PI,
         cutout: '70%',
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{ legend:{display:false}, tooltip:{enabled:false} }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
       }
     });
   });
 }
+
 function pickGaugeColor(p){
   if(p<=25) return gaugeColors[0];
   if(p<=50) return gaugeColors[1];
@@ -260,15 +277,17 @@ function pickGaugeColor(p){
 
 /* Painel da igreja (mapa + barra) */
 function renderChurch(row){
-  const target = row ? Number(row.target)||0 : 0;
-  const achieved = row ? Number(row.achieved)||0 : 0;
-  const percent = target>0 ? Math.round((achieved/target)*100) : 0;
-  const percentClamped = clamp(percent,0,100);
+  const target = row ? Number(row.target) || 0 : 0;
+  const achieved = row ? Number(row.achieved) || 0 : 0;
+  const percent = target > 0 ? Math.round((achieved / target) * 100) : 0;
+  const percentClamped = clamp(percent, 0, 999); // 👈 AGORA EXISTE
+  const percentRaw = percent; // valor real (pode passar de 100)
+  const percentVisual = clamp(percent, 0, 100); // só para visual
   document.getElementById('church-target').textContent = fmtMoney(target);
   document.getElementById('church-achieved').textContent = fmtMoney(achieved);
-  document.getElementById('thermo-label').textContent = percentClamped + '%';
+  document.getElementById('thermo-label').textContent = percentRaw + '%';
   const thermo = document.getElementById('thermoFill');
-  thermo.style.height = (percentClamped) + '%';
+  thermo.style.height = (8 + (percentVisual * 0.84)) + '%';
   // Chama para mudar a cor da coluna direita
   aplicarCorTermometro(percentClamped);
 
