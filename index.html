@@ -301,9 +301,12 @@ function aplicarCorTermometro(percentual) {
 
   // Define a cor base de acordo com o progresso
   let corBase = '#e53935'; // vermelho padrão
-  if (percentual > 75) corBase = '#4caf50'; // verde
-  else if (percentual > 50) corBase = '#ffeb3b'; // amarelo
-  else if (percentual > 25) corBase = '#ff9800'; // laranja
+  if (percentual > 99) corBase = '#00b0ff'; // verde
+  else if (percentual > 75) corBase = '#7ee07a'; // amarelo
+  else if (percentual > 50) corBase = '#ffd600'; // laranja
+  else if (percentual > 25) corBase = '#ff9a00'; // laranja
+
+
 
   // Normaliza o percentual (0–100)
   const preenchimento = Math.min(Math.max(percentual, 0), 100);
